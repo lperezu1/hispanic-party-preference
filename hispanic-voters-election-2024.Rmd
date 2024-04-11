@@ -1,0 +1,46 @@
+---
+title: "hispanic-voters-election-2024"
+author: "Luciana Perez Uribe Guinassi"
+date: "2024-04-09"
+output: html_document
+---
+
+
+#Dependeies
+
+```{r}
+update.packages(ask = FALSE)
+install.packages("dplyr")
+install.packages("rlang")
+install.packages("writexl")
+library(writexl)
+library(dplyr)
+```
+
+#Importing dataset
+
+```{r}
+nc_voter_db <- read.delim("./history_stats_20240305.txt", sep = "\t")
+
+```
+
+
+# Filter by only HL
+```{r}
+nc_voter_db
+colnames(nc_voter_db)
+HL_ncvoter <- filter(nc_voter_db, ethnic_code == "HL")
+```
+
+
+# Filter by voted_party_cd (party primary) only HL
+```{r}
+HL_ncvoter_DEM <- filter(HL_ncvoter, voted_party_cd == "DEM")
+HL_ncvoter_REP <- filter(HL_ncvoter, voted_party_cd == "REP")
+```
+
+
+# Export to excel
+```{r}
+write_xlsx(HL_ncvoter, "filter-hispanic-voters.xlsx")
+```
