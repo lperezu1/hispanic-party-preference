@@ -9,9 +9,8 @@ output: html_document
 #Dependeies
 
 ```{r}
-update.packages(ask = FALSE)
+#update.packages(ask = FALSE)
 install.packages("dplyr")
-install.packages("rlang")
 install.packages("writexl")
 library(writexl)
 library(dplyr)
@@ -20,27 +19,27 @@ library(dplyr)
 #Importing dataset
 
 ```{r}
-nc_voter_db <- read.delim("./history_stats_20240305.txt", sep = "\t")
-
+nc_voter_db_2024 <- read.delim("./history_stats_20240305.txt", sep = "\t")
+nc_voter_db_2020 <- read.delim("./history_stats_20200303.txt", sep = "\t")
+nc_voter_db_2016 <- read.delim("./history_stats_20160315.txt", sep = "\t")
+nc_voter_db_2012 <- read.delim("./history_stats_20120508.txt", sep = "\t")
 ```
 
 
 # Filter by only HL
 ```{r}
-nc_voter_db
-colnames(nc_voter_db)
-HL_ncvoter <- filter(nc_voter_db, ethnic_code == "HL")
-```
+HL_ncvoter_2024 <- filter(nc_voter_db_2024, ethnic_code == "HL")
+HL_ncvoter_2020 <- filter(nc_voter_db_2020, ethnic_code == "HL")
+HL_ncvoter_2016 <- filter(nc_voter_db_2016, ethnic_code == "HL")
+HL_ncvoter_2012 <- filter(nc_voter_db_2012, ethnic_code == "HL")
 
-
-# Filter by voted_party_cd (party primary) only HL
-```{r}
-HL_ncvoter_DEM <- filter(HL_ncvoter, voted_party_cd == "DEM")
-HL_ncvoter_REP <- filter(HL_ncvoter, voted_party_cd == "REP")
 ```
 
 
 # Export to excel
 ```{r}
-write_xlsx(HL_ncvoter, "filter-hispanic-voters.xlsx")
+write_xlsx(HL_ncvoter_2024, "filter-hispanic-voters_2024.xlsx")
+write_xlsx(HL_ncvoter_2020, "filter-hispanic-voters_2020.xlsx")
+write_xlsx(HL_ncvoter_2016, "filter-hispanic-voters_2016.xlsx")
+write_xlsx(HL_ncvoter_2012, "filter-hispanic-voters_2012.xlsx")
 ```
