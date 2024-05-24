@@ -1,0 +1,187 @@
+---
+title: "general-voter-analysis-nc"
+author: "Luciana Perez Uribe"
+date: "2024-05-24"
+output: html_document
+---
+
+#Dependencies
+
+```{r}
+#update.packages(ask = FALSE)
+install.packages("dplyr")
+install.packages("writexl")
+library(writexl)
+library(dplyr)
+```
+
+#Importing primary election voter registration datasets for 2012,2016,2020 and 2024. 
+
+```{r}
+nc_voter_db_2024 <- read.delim("./data/history_stats_20240305.txt", sep = "\t")
+nc_voter_db_2020 <- read.delim("./data/history_stats_20200303.txt", sep = "\t")
+nc_voter_db_2016 <- read.delim("./data/history_stats_20160315.txt", sep = "\t")
+nc_voter_db_2012 <- read.delim("./data/history_stats_20120508.txt", sep = "\t")
+```
+
+# party cd = how voters were registered 
+# voted_party_cd = in what primary voters participated in 
+
+# Below, we're filtering by party registration. So we're first obtaining the unique party_cd values by year. 
+
+
+## 2024 
+#2024 party registration in the primary. 
+
+```{r}
+unique_party_cd <- unique(nc_voter_db_2024$party_cd)
+for (party in unique_party_cd) {
+  filtered_data <- filter(nc_voter_db_2024, party_cd == party)
+  #assign(paste0("nc_voter_db_2024_", party), filtered_data)
+  cat("Party:", party, "- Total Voters:", sum(filtered_data$total_voters, na.rm = TRUE), "\n")
+}
+```
+
+#2024 party participation in the primary. 
+
+```{r}
+unique_voted_party_cd <- unique(nc_voter_db_2024$voted_party_cd)
+for (party in unique_voted_party_cd) {
+  filtered_data <- filter(nc_voter_db_2024, voted_party_cd == party)
+  #assign(paste0("nc_voter_db_2024_", party), filtered_data)
+  cat("Party:", party, "- Total Voters:", sum(filtered_data$total_voters, na.rm = TRUE), "\n")
+} 
+```
+
+
+
+
+##2020 
+#2020 party registration in the primary. 
+
+```{r}
+unique_party_cd <- unique(nc_voter_db_2020$party_cd)
+for (party in unique_party_cd) {
+  filtered_data <- filter(nc_voter_db_2020, party_cd == party)
+   #assign(paste0("nc_voter_db_2024_", party), filtered_data)
+  cat("Party:", party, "- Total Voters:", sum(filtered_data$total_voters, na.rm = TRUE), "\n")
+}
+```
+
+
+#2020 party participation in the primary. 
+
+```{r}
+unique_voted_party_cd <- unique(nc_voter_db_2020$voted_party_cd)
+for (party in unique_voted_party_cd) {
+  filtered_data <- filter(nc_voter_db_2024, voted_party_cd == party)
+  #assign(paste0("nc_voter_db_2024_", party), filtered_data)
+  cat("Party:", party, "- Total Voters:", sum(filtered_data$total_voters, na.rm = TRUE), "\n")
+} 
+```
+
+
+
+##2016
+#2016 party registration in the primary. 
+
+```{r}
+unique_party_cd <- unique(nc_voter_db_2016$party_cd)
+for (party in unique_party_cd) {
+  filtered_data <- filter(nc_voter_db_2016, party_cd == party)
+  #assign(paste0("nc_voter_db_2024_", party), filtered_data)
+  cat("Party:", party, "- Total Voters:", sum(filtered_data$total_voters, na.rm = TRUE), "\n")
+}
+```
+
+
+#2016 party participation in the primary. 
+
+```{r}
+unique_voted_party_cd <- unique(nc_voter_db_2016$voted_party_cd)
+for (party in unique_voted_party_cd) {
+  filtered_data <- filter(nc_voter_db_2016, voted_party_cd == party)
+  #assign(paste0("nc_voter_db_2024_", party), filtered_data)
+  cat("Party:", party, "- Total Voters:", sum(filtered_data$total_voters, na.rm = TRUE), "\n")
+} 
+```
+
+
+
+##2012 
+#2012 party registration in the primary. 
+
+```{r}
+unique_party_cd <- unique(nc_voter_db_2012$party_cd)
+for (party in unique_party_cd) {
+  filtered_data <- filter(nc_voter_db_2012, party_cd == party)
+  #assign(paste0("nc_voter_db_2024_", party), filtered_data)
+  cat("Party:", party, "- Total Voters:", sum(filtered_data$total_voters, na.rm = TRUE), "\n")
+}
+```
+
+#2012 party participation in the primary. 
+
+```{r}
+unique_voted_party_cd <- unique(nc_voter_db_2012$voted_party_cd)
+for (party in unique_voted_party_cd) {
+  filtered_data <- filter(nc_voter_db_2012, voted_party_cd == party)
+  #assign(paste0("nc_voter_db_2024_", party), filtered_data)
+  cat("Party:", party, "- Total Voters:", sum(filtered_data$total_voters, na.rm = TRUE), "\n")
+} 
+```
+
+
+
+## Unaffiliated voter analysis 
+# For voters who were registered as unaffilated, in what primary did they vote in? 
+
+
+#2024
+```{r}
+unaffiliated_ncvoter_2024 <- filter(nc_voter_db_2024, party_cd == "UNA")
+sum(unaffiliated_ncvoter_2024$total_voters, na.rm = TRUE)
+nique_party_cd <- unique(unaffiliated_ncvoter_2024$voted_party_cd)
+for (party in unique_party_cd) {
+  filtered_data <- filter(unaffiliated_ncvoter_2024, voted_party_cd == party)
+  cat("Party:", party, "- Total Voters:", sum(filtered_data$total_voters, na.rm = TRUE), "\n")
+  #assign(paste0("unaffiliated_ncvoter_2024_voted_", party), filtered_data)
+}
+```
+
+#2020
+```{r}
+unaffiliated_ncvoter_2020 <- filter(nc_voter_db_2020, party_cd == "UNA")
+sum(unaffiliated_ncvoter_2020$total_voters, na.rm = TRUE)
+nique_party_cd <- unique(unaffiliated_ncvoter_2020$voted_party_cd)
+for (party in unique_party_cd) {
+  filtered_data <- filter(unaffiliated_ncvoter_2020, voted_party_cd == party)
+  cat("Party:", party, "- Total Voters:", sum(filtered_data$total_voters, na.rm = TRUE), "\n")
+  #assign(paste0("unaffiliated_ncvoter_2024_voted_", party), filtered_data)
+}
+```
+
+#2016
+```{r}
+unaffiliated_ncvoter_2016 <- filter(nc_voter_db_2016, party_cd == "UNA")
+sum(unaffiliated_ncvoter_2016$total_voters, na.rm = TRUE)
+nique_party_cd <- unique(unaffiliated_ncvoter_2016$voted_party_cd)
+for (party in unique_party_cd) {
+  filtered_data <- filter(unaffiliated_ncvoter_2016, voted_party_cd == party)
+  cat("Party:", party, "- Total Voters:", sum(filtered_data$total_voters, na.rm = TRUE), "\n")
+  #assign(paste0("unaffiliated_ncvoter_2024_voted_", party), filtered_data)
+}
+```
+
+#2012
+```{r}
+unaffiliated_ncvoter_2012 <- filter(nc_voter_db_2012, party_cd == "UNA")
+sum(unaffiliated_ncvoter_2012$total_voters, na.rm = TRUE)
+nique_party_cd <- unique(unaffiliated_ncvoter_2012$voted_party_cd)
+for (party in unique_party_cd) {
+  filtered_data <- filter(unaffiliated_ncvoter_2012, voted_party_cd == party)
+  cat("Party:", party, "- Total Voters:", sum(filtered_data$total_voters, na.rm = TRUE), "\n")
+  #assign(paste0("unaffiliated_ncvoter_2024_voted_", party), filtered_data)
+}
+```
+
