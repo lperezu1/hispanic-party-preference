@@ -24,14 +24,15 @@ nc_voter_db_2016 <- read.delim("./data/history_stats_20160315.txt", sep = "\t")
 nc_voter_db_2012 <- read.delim("./data/history_stats_20120508.txt", sep = "\t")
 ```
 
-# party cd = how voters were registered 
-# voted_party_cd = in what primary voters participated in 
+# party cd = voter turnout and how the voters were registered (party of the registered voter)
+# voted_party_cd = in what primary voters participated in (voted party by ballot style) 
 
 # Below, we're filtering by party registration. So we're first obtaining the unique party_cd values by year. 
 
+## voter turnout data by NCSBE- https://www.ncsbe.gov/results-data/voter-turnout#primary AND NCSBE voter turnout for solely 2024 - https://www.ncsbe.gov/results-data/voter-turnout/2024-primary-election-turnout 
 
 ## 2024 
-#2024 party registration in the primary. 
+###2024 - party registration in the primary. Total ballots cast was 1,799,534. 
 
 ```{r}
 unique_party_cd <- unique(nc_voter_db_2024$party_cd)
@@ -42,7 +43,7 @@ for (party in unique_party_cd) {
 }
 ```
 
-#2024 party participation in the primary. 
+#2024 party participation in the primary. Total voter participation was 1,799,534. 
 
 ```{r}
 unique_voted_party_cd <- unique(nc_voter_db_2024$voted_party_cd)
@@ -56,8 +57,9 @@ for (party in unique_voted_party_cd) {
 
 
 
-##2020 
-#2020 party registration in the primary. 
+### 2020 
+## 2020 -  2,164,731 total ballots cast 
+# party registration in the primary. 
 
 ```{r}
 unique_party_cd <- unique(nc_voter_db_2020$party_cd)
@@ -74,7 +76,7 @@ for (party in unique_party_cd) {
 ```{r}
 unique_voted_party_cd <- unique(nc_voter_db_2020$voted_party_cd)
 for (party in unique_voted_party_cd) {
-  filtered_data <- filter(nc_voter_db_2024, voted_party_cd == party)
+  filtered_data <- filter(nc_voter_db_2020, voted_party_cd == party)
   #assign(paste0("nc_voter_db_2024_", party), filtered_data)
   cat("Party:", party, "- Total Voters:", sum(filtered_data$total_voters, na.rm = TRUE), "\n")
 } 
@@ -83,7 +85,7 @@ for (party in unique_voted_party_cd) {
 
 
 ##2016
-#2016 party registration in the primary. 
+#2016 party registration in the primary. - 2,323,590 total ballots cast  
 
 ```{r}
 unique_party_cd <- unique(nc_voter_db_2016$party_cd)
@@ -109,7 +111,7 @@ for (party in unique_voted_party_cd) {
 
 
 ##2012 
-#2012 party registration in the primary. 
+#2012 party registration in the primary. - total ballots cast 2,182,675  
 
 ```{r}
 unique_party_cd <- unique(nc_voter_db_2012$party_cd)
@@ -141,7 +143,7 @@ for (party in unique_voted_party_cd) {
 ```{r}
 unaffiliated_ncvoter_2024 <- filter(nc_voter_db_2024, party_cd == "UNA")
 sum(unaffiliated_ncvoter_2024$total_voters, na.rm = TRUE)
-nique_party_cd <- unique(unaffiliated_ncvoter_2024$voted_party_cd)
+unique_party_cd <- unique(unaffiliated_ncvoter_2024$voted_party_cd)
 for (party in unique_party_cd) {
   filtered_data <- filter(unaffiliated_ncvoter_2024, voted_party_cd == party)
   cat("Party:", party, "- Total Voters:", sum(filtered_data$total_voters, na.rm = TRUE), "\n")
@@ -153,7 +155,7 @@ for (party in unique_party_cd) {
 ```{r}
 unaffiliated_ncvoter_2020 <- filter(nc_voter_db_2020, party_cd == "UNA")
 sum(unaffiliated_ncvoter_2020$total_voters, na.rm = TRUE)
-nique_party_cd <- unique(unaffiliated_ncvoter_2020$voted_party_cd)
+unique_party_cd <- unique(unaffiliated_ncvoter_2020$voted_party_cd)
 for (party in unique_party_cd) {
   filtered_data <- filter(unaffiliated_ncvoter_2020, voted_party_cd == party)
   cat("Party:", party, "- Total Voters:", sum(filtered_data$total_voters, na.rm = TRUE), "\n")
@@ -165,7 +167,7 @@ for (party in unique_party_cd) {
 ```{r}
 unaffiliated_ncvoter_2016 <- filter(nc_voter_db_2016, party_cd == "UNA")
 sum(unaffiliated_ncvoter_2016$total_voters, na.rm = TRUE)
-nique_party_cd <- unique(unaffiliated_ncvoter_2016$voted_party_cd)
+unique_party_cd <- unique(unaffiliated_ncvoter_2016$voted_party_cd)
 for (party in unique_party_cd) {
   filtered_data <- filter(unaffiliated_ncvoter_2016, voted_party_cd == party)
   cat("Party:", party, "- Total Voters:", sum(filtered_data$total_voters, na.rm = TRUE), "\n")

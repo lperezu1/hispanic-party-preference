@@ -35,7 +35,7 @@ HL_ncvoter_2012 <- filter(nc_voter_db_2012, ethnic_code == "HL")
 
 ```
 
-# In what primary did latinos registered as unaffiliated participate in? 2024
+# In what primary did latinos registered as unaffiliated participate in in 2024? 
 ```{r}
 unaffiliated_ncvoter_HL_2024 <- filter(HL_ncvoter_2024, party_cd == "UNA")
 sum(unaffiliated_ncvoter_HL_2024$total_voters, na.rm = TRUE)
