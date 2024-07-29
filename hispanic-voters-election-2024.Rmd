@@ -16,7 +16,7 @@ library(writexl)
 library(dplyr)
 ```
 
-#Importing dataset
+#Importing dataset - primarise for 2024, 2020, 2016, 2012 
 
 ```{r}
 nc_voter_db_2024 <- read.delim("./data/history_stats_20240305.txt", sep = "\t")
@@ -26,7 +26,7 @@ nc_voter_db_2012 <- read.delim("./data/history_stats_20120508.txt", sep = "\t")
 ```
 
 
-# Filter by only HL
+# Filter the databases by only Latino voters ( HL) 
 ```{r}
 HL_ncvoter_2024 <- filter(nc_voter_db_2024, ethnic_code == "HL")
 HL_ncvoter_2020 <- filter(nc_voter_db_2020, ethnic_code == "HL")
@@ -47,7 +47,7 @@ for (party in unique_party_cd_HL) {
 }
 ```
 
-# In what primary did latinos registered as unaffiliated participate in? 2020
+# In what primary did latinos registered as unaffiliated participate in in 2020?
 ```{r}
 unaffiliated_ncvoter_HL_2020 <- filter(HL_ncvoter_2020, party_cd == "UNA")
 sum(unaffiliated_ncvoter_HL_2020$total_voters, na.rm = TRUE)
@@ -59,7 +59,7 @@ for (party in unique_party_cd_HL) {
 }
 ```
 
-# In what primary did latinos registered as unaffiliated participate in? 2016
+# In what primary did latinos registered as unaffiliated participate in in 2016? 
 ```{r}
 unaffiliated_ncvoter_HL_2016 <- filter(HL_ncvoter_2016, party_cd == "UNA")
 sum(unaffiliated_ncvoter_HL_2016$total_voters, na.rm = TRUE)
@@ -71,7 +71,7 @@ for (party in unique_party_cd_HL) {
 }
 ```
 
-# In what primary did latinos registered as unaffiliated participate in? 2012
+# In what primary did latinos registered as unaffiliated participate in in 2012?  
 ```{r}
 unaffiliated_ncvoter_HL_2012 <- filter(HL_ncvoter_2012, party_cd == "UNA")
 sum(unaffiliated_ncvoter_HL_2012$total_voters, na.rm = TRUE)
