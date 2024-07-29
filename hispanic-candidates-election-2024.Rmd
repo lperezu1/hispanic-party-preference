@@ -1,7 +1,7 @@
 ---
 title: "hispanic-candidates-election-2024"
 author: "Luciana Perez Uribe"
-date: "2024-04-15"
+date: "2024-07-29"
 output: html_document
 ---
 
@@ -20,7 +20,9 @@ library(fuzzyjoin)
 # Import datasets
 ```{r}
 nc_voter = read.delim("./data/ncvoter_Statewide.txt", sep = "\t") # downloaded July 15, 2024
+# https://www.ncsbe.gov/results-data/voter-history-data 
 candidates <- read_csv("./data/Candidate_Listing_2024.csv")
+# https://www.ncsbe.gov/results-data/candidate-lists (used 2024 candidate list spreadsheet) 
 ```
 
 # Filter Hispanic/Latino voters
@@ -68,3 +70,5 @@ print(candidates_hispanic_unique)
 ```{r}
 write_xlsx(candidates_hispanic_unique, "filter-hispanic-candidates_2024.xlsx")
 ```
+
+# manually verified results were valid. 
