@@ -1,0 +1,67 @@
+---
+title: "july2024-registration-nc"
+author: "Luciana Perez Uribe"
+date: "2024-07-29"
+output: html_document
+---
+
+---
+title: "july2024-registration-nc"
+author: "Luciana Perez Uribe"
+date: "2024-07-29"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Install libraries
+```{r}
+options(repos = c(CRAN = "https://cran.rstudio.com/"))
+if (!require(tidyverse)) install.packages("tidyverse")
+if (!require(dplyr)) install.packages("dplyr")
+if (!require(writexl)) install.packages("writexl")
+library(tidyverse)
+library(dplyr)
+library(writexl)
+
+```
+
+# Import datasets
+```{r}
+nc_voter = read.delim("./data/ncvoter_Statewide.txt", sep = "\t") # downloaded July 29, 2024 https://www.ncsbe.gov/results-data/voter-registration-data
+```
+
+# Filter by all, Non-Hispanic Voters, and Hispanic Voters. Then made a table by parties
+```{r}
+# Crear una tabla con el número de votantes por cada partido
+party_counts <- table(nc_voter$party_cd)
+
+# Convertir la tabla a un data frame para una mejor visualización
+party_counts_df <- as.data.frame(party_counts)
+colnames(party_counts_df) <- c("Party", "Number of Voters")
+
+# Hispanic Voters
+hispanic_voters <- subset(nc_voter, ethnic_code == "HL")
+hispanic_party_counts <- table(hispanic_voters$party_cd)
+hispanic_party_counts_df <- as.data.frame(hispanic_party_counts)
+colnames(hispanic_party_counts_df) <- c("Party", "Number of Hispanic Voters")
+
+# Non-Hispanic Voters
+non_hispanic_voters <- subset(nc_voter, ethnic_code != "HL")
+non_hispanic_party_counts <- table(non_hispanic_voters$party_cd)
+non_hispanic_party_counts_df <- as.data.frame(non_hispanic_party_counts)
+colnames(non_hispanic_party_counts_df) <- c("Party", "Number of Non-Hispanic Voters")
+
+# Show tables
+print("Number of Voters:")
+print(party_counts_df)
+
+print("Number of Hispanic Voters:")
+print(hispanic_party_counts_df)
+
+print("Number of Non-Hispanic Voters:")
+print(non_hispanic_party_counts_df)
+```
