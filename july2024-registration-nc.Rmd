@@ -65,3 +65,16 @@ print(hispanic_party_counts_df)
 print("Number of Non-Hispanic Voters:")
 print(non_hispanic_party_counts_df)
 ```
+
+# Export to excel file
+```{r}
+tablas <- list(
+  "Total Voters" = party_counts_df,
+  "Hispanic Voters" = hispanic_party_counts_df,
+  "Non-Hispanic Voters" = non_hispanic_party_counts_df
+)
+
+
+write_xlsx(tablas, path = "nc_voter_registration_counts.xlsx")
+```
+
