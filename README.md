@@ -1,4 +1,3 @@
-Download the databases
 Before you run the code, make sure to first download the needed databases.
 
 NCSBE Voter registration data: https://www.ncsbe.gov/results-data/voter-registration-data 
