@@ -1,7 +1,7 @@
 ---
 title: "general-voter-analysis-nc"
 author: "Luciana Perez Uribe"
-date: "2024-05-24"
+date: "2024-07-29"
 output: html_document
 ---
 
@@ -27,7 +27,7 @@ nc_voter_db_2012 <- read.delim("./data/history_stats_20120508.txt", sep = "\t")
 # party cd = voter turnout and how the voters were registered (party of the registered voter)
 # voted_party_cd = in what primary voters participated in (voted party by ballot style) 
 
-# Below, we're filtering by party registration. So we're first obtaining the unique party_cd values by year. 
+# Below, i'm filtering by party registration. So we're first obtaining the unique party_cd values by year. 
 
 ## voter turnout data by NCSBE- https://www.ncsbe.gov/results-data/voter-turnout#primary AND NCSBE voter turnout for solely 2024 - https://www.ncsbe.gov/results-data/voter-turnout/2024-primary-election-turnout 
 
