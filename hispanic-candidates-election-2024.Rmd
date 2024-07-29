@@ -17,10 +17,11 @@ library(dplyr)
 library(fuzzyjoin)
 ```
 
-# Import datasets
+# Import datasets - voter registration data and candidate lists 
+
 ```{r}
 nc_voter = read.delim("./data/ncvoter_Statewide.txt", sep = "\t") # downloaded July 15, 2024
-# https://www.ncsbe.gov/results-data/voter-history-data 
+# https://www.ncsbe.gov/results-data/voter-registration-data
 candidates <- read_csv("./data/Candidate_Listing_2024.csv")
 # https://www.ncsbe.gov/results-data/candidate-lists (used 2024 candidate list spreadsheet) 
 ```
