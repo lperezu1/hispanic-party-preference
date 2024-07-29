@@ -1,7 +1,7 @@
 ---
 title: "hispanic-voters-election-2024"
 author: "Luciana Perez Uribe Guinassi"
-date: "2024-04-09"
+date: "2024-07-29"
 output: html_document
 ---
 
@@ -16,7 +16,7 @@ library(writexl)
 library(dplyr)
 ```
 
-#Importing dataset - primarise for 2024, 2020, 2016, 2012 
+#Importing NC datasets - primaries for 2024, 2020, 2016, 2012 
 
 ```{r}
 nc_voter_db_2024 <- read.delim("./data/history_stats_20240305.txt", sep = "\t")
