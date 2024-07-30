@@ -36,34 +36,33 @@ nc_voter = read.delim("./data/ncvoter_Statewide.txt", sep = "\t") # downloaded J
 
 # Filter by all, Non-Hispanic Voters, and Hispanic Voters. Then made a table by parties
 ```{r}
-# Crear una tabla con el número de votantes por cada partido
-party_counts <- table(nc_voter$party_cd)
 
-# Convertir la tabla a un data frame para una mejor visualización
+# All Voters
+party_counts <- table(nc_voter$party_cd)
 party_counts_df <- as.data.frame(party_counts)
 colnames(party_counts_df) <- c("Party", "Number of Voters")
+print(party_counts_df)
 
-# Hispanic Voters
+# Number of Hispanic Voters
 hispanic_voters <- subset(nc_voter, ethnic_code == "HL")
 hispanic_party_counts <- table(hispanic_voters$party_cd)
 hispanic_party_counts_df <- as.data.frame(hispanic_party_counts)
 colnames(hispanic_party_counts_df) <- c("Party", "Number of Hispanic Voters")
-
-# Non-Hispanic Voters
-non_hispanic_voters <- subset(nc_voter, ethnic_code != "HL")
-non_hispanic_party_counts <- table(non_hispanic_voters$party_cd)
-non_hispanic_party_counts_df <- as.data.frame(non_hispanic_party_counts)
-colnames(non_hispanic_party_counts_df) <- c("Party", "Number of Non-Hispanic Voters")
-
-# Show tables
-print("Number of Voters:")
-print(party_counts_df)
-
-print("Number of Hispanic Voters:")
 print(hispanic_party_counts_df)
 
-print("Number of Non-Hispanic Voters:")
+# Non-Hispanic and Non-Undesignated Voters
+non_hispanic_voters <- subset(nc_voter, ethnic_code != "HL" & ethnic_code != "UN")
+non_hispanic_party_counts <- table(non_hispanic_voters$party_cd)
+non_hispanic_party_counts_df <- as.data.frame(non_hispanic_party_counts)
+colnames(non_hispanic_party_counts_df) <- c("Party", "Number of Non-Hispanic and Non-Undesignated Voters")
 print(non_hispanic_party_counts_df)
+
+# Undesignated Voters
+undesignated_voters <- subset(nc_voter, ethnic_code == "UN")
+undesignated_party_counts <- table(undesignated_voters$party_cd)
+undesignated_party_counts_df <- as.data.frame(undesignated_party_counts)
+colnames(undesignated_party_counts_df) <- c("Party", "Number of Undesignated Voters")
+print(undesignated_party_counts_df)
 ```
 
 # Export to excel file
@@ -71,10 +70,11 @@ print(non_hispanic_party_counts_df)
 tablas <- list(
   "Total Voters" = party_counts_df,
   "Hispanic Voters" = hispanic_party_counts_df,
-  "Non-Hispanic Voters" = non_hispanic_party_counts_df
+  "Non-Hispanic and Non-Undesignated Voters" = non_hispanic_party_counts_df,
+  "Undesignated Voters" = undesignated_party_counts_df
 )
 
-
 write_xlsx(tablas, path = "nc_voter_registration_counts.xlsx")
+
 ```
 
